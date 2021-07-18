@@ -424,4 +424,54 @@ Wire Wire Line
 Connection ~ 3450 3350
 Wire Wire Line
 	3450 3350 3450 3450
+$Comp
+L Switch:SW_SPST SW1
+U 1 1 60FA499B
+P 9150 2750
+F 0 "SW1" H 9150 2985 50  0000 C CNN
+F 1 "SW_SPST" H 9150 2894 50  0000 C CNN
+F 2 "Button_Switch_Keyboard:SW_Cherry_MX_1.00u_PCB" H 9150 2750 50  0001 C CNN
+F 3 "~" H 9150 2750 50  0001 C CNN
+	1    9150 2750
+	1    0    0    -1  
+$EndComp
+Text GLabel 4800 4750 0    50   Input ~ 0
+KEY1
+Text GLabel 4800 4850 0    50   Input ~ 0
+KEY2
+Text GLabel 9350 2750 2    50   Output ~ 0
+KEY1
+$Comp
+L Switch:SW_SPST SW2
+U 1 1 60FA81CF
+P 9150 2950
+F 0 "SW2" H 9150 3185 50  0000 C CNN
+F 1 "SW_SPST" H 9150 3094 50  0000 C CNN
+F 2 "Button_Switch_Keyboard:SW_Cherry_MX_1.00u_PCB" H 9150 2950 50  0001 C CNN
+F 3 "~" H 9150 2950 50  0001 C CNN
+	1    9150 2950
+	1    0    0    -1  
+$EndComp
+Text GLabel 9350 2950 2    50   Output ~ 0
+KEY2
+$Comp
+L power:GND #PWR016
+U 1 1 60FA8FBB
+P 8650 3350
+F 0 "#PWR016" H 8650 3100 50  0001 C CNN
+F 1 "GND" H 8655 3177 50  0000 C CNN
+F 2 "" H 8650 3350 50  0001 C CNN
+F 3 "" H 8650 3350 50  0001 C CNN
+	1    8650 3350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8950 2750 8650 2750
+Wire Wire Line
+	8650 2750 8650 2950
+Wire Wire Line
+	8950 2950 8650 2950
+Connection ~ 8650 2950
+Wire Wire Line
+	8650 2950 8650 3350
 $EndSCHEMATC
