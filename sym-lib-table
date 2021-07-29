@@ -1,5 +1,4 @@
 (sym_lib_table
-  (lib (name 12401610E4_2A)(type Legacy)(uri ${KIPRJMOD}/Digi-Key/12401610E4_2A.lib)(options "")(descr ""))
   (lib (name BQ27441DRZTG1A)(type Legacy)(uri ${KIPRJMOD}/Digi-Key/BQ27441DRZTG1A.lib)(options "")(descr ""))
   (lib (name DMP1045UFY4)(type Legacy)(uri ${KIPRJMOD}/Digi-Key/DMP1045UFY4.lib)(options "")(descr ""))
   (lib (name ESP32-PICO-D4)(type Legacy)(uri ${KIPRJMOD}/Digi-Key/ESP32-PICO-D4.lib)(options "")(descr ""))
@@ -12,4 +11,7 @@
   (lib (name TLV75733PDRVR)(type Legacy)(uri ${KIPRJMOD}/Digi-Key/TLV75733PDRVR.lib)(options "")(descr ""))
   (lib (name TPS78218DRVR)(type Legacy)(uri ${KIPRJMOD}/Digi-Key/TPS78218DRVR.lib)(options "")(descr ""))
   (lib (name TXS0108ERGYR)(type Legacy)(uri ${KIPRJMOD}/Digi-Key/TXS0108ERGYR.lib)(options "")(descr ""))
+  (lib (name BB-2020BGR-TRB)(type Legacy)(uri ${KIPRJMOD}/BB-2020BGR-TRB.lib)(options "")(descr ""))
+  (lib (name 2021-07-27_21-35-03)(type Legacy)(uri ${KIPRJMOD}/2021-07-27_21-35-03.lib)(options "")(descr ""))
+  (lib (name 12401610E4_2A)(type Legacy)(uri ${KIPRJMOD}/Digi-Key/12401610E4_2A.lib)(options "")(descr ""))
 )
