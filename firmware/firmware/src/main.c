@@ -38,7 +38,122 @@
 #include "conf_usb.h"
 #include "ui.h"
 
+struct spi_module spi_master_instance;
+struct spi_slave_inst slave;
+
+void configure_spi_master_callbacks(void);
+void configure_spi_master(void);
+
+volatile bool is_transferring = false;
+
+static void callback_spi_master( struct spi_module *const module)
+{
+	is_transferring = false;
+}
+
+void configure_spi_master_callbacks(void)
+{
+	spi_register_callback(&spi_master_instance, callback_spi_master, SPI_CALLBACK_BUFFER_TRANSCEIVED);
+	spi_enable_callback(&spi_master_instance, SPI_CALLBACK_BUFFER_TRANSCEIVED);
+}
+
+void configure_spi_master(void)
+{
+	struct spi_config config_spi_master;
+	struct spi_slave_inst_config slave_dev_config;
+	/* Configure and initialize software device instance of peripheral slave */
+	spi_slave_inst_get_config_defaults(&slave_dev_config);
+	slave_dev_config.ss_pin = CONF_MASTER_SS_PIN;
+	spi_attach_slave(&slave, &slave_dev_config);
+	/* Configure, initialize and enable SERCOM SPI module */
+	spi_get_config_defaults(&config_spi_master);
+
+	config_spi_master.mux_setting = CONF_MASTER_MUX_SETTING;
+	config_spi_master.pinmux_pad0 = CONF_MASTER_PINMUX_PAD0;
+	config_spi_master.pinmux_pad1 = CONF_MASTER_PINMUX_PAD1;
+	config_spi_master.pinmux_pad2 = CONF_MASTER_PINMUX_PAD2;
+	config_spi_master.pinmux_pad3 = CONF_MASTER_PINMUX_PAD3;
+
+	spi_init(&spi_master_instance, CONF_MASTER_SPI_MODULE, &config_spi_master);
+
+	spi_enable(&spi_master_instance);
+	
+	configure_spi_master_callbacks();
+}
+
 static volatile bool main_b_kbd_enable = true;
+
+void setLED(uint8_t index, uint8_t brightness, uint8_t r, uint8_t g, uint8_t b);
+
+void setLED(uint8_t index, uint8_t brightness, uint8_t r, uint8_t g, uint8_t b) {
+	//spi_select_slave(&spi_master_instance, &slave, true);
+	static uint8_t wr_buffer[16] = {
+		// start frame 32 bits
+		0x00, 0x00, 0x00, 0x00,
+		// global quarter brightness
+		0b11100000,
+		// blue
+		0x00,
+		// green
+		0x00,
+		// red
+		0x00,
+		// global quarter brightness
+		0b11100000,
+		// blue
+		0x00,
+		// green
+		0x00,
+		// red
+		0x00,
+		// end frame 32 bits
+		0xff, 0xff, 0xff, 0xff
+	}, rd_buffer[16];
+	
+	uint8_t offset = 4 + 4 * index;
+	wr_buffer[offset + 0] = brightness | 0b11100000;
+	wr_buffer[offset + 1] = b;
+	wr_buffer[offset + 2] = g;
+	wr_buffer[offset + 3] = r;
+	
+	while(is_transferring)  {
+		// wait
+	}
+	is_transferring = true;
+	spi_transceive_buffer_job(&spi_master_instance, wr_buffer,rd_buffer,16);
+}
+
+void clearLEDs() {
+	//spi_select_slave(&spi_master_instance, &slave, true);
+	static uint8_t wr_buffer[16] = {
+		// start frame 32 bits
+		0x00, 0x00, 0x00, 0x00,
+		// global quarter brightness
+		0b11100000,
+		// blue
+		0x00,
+		// green
+		0x00,
+		// red
+		0x00,
+		// global quarter brightness
+		0b11100000,
+		// blue
+		0x00,
+		// green
+		0x00,
+		// red
+		0x00,
+		// end frame 32 bits
+		0xff, 0xff, 0xff, 0xff
+	}, rd_buffer[16];
+
+	while(is_transferring)  {
+		// wait
+	}
+	is_transferring = true;		
+	spi_transceive_buffer_job(&spi_master_instance, wr_buffer,rd_buffer,16);
+}
 
 /*! \brief Main function. Execution starts here.
  */
@@ -56,6 +171,8 @@ int main(void)
 #else
 	system_init();
 #endif
+	configure_spi_master();
+	clearLEDs();
 	ui_init();
 	ui_powerdown();
 

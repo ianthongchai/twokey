@@ -24,6 +24,14 @@ src\ASF\sam0\drivers\extint\extint_sam_d_r_h\extint.c
 
 src\ASF\sam0\drivers\port\port.c
 
+src\ASF\sam0\drivers\sercom\sercom.c
+
+src\ASF\sam0\drivers\sercom\sercom_interrupt.c
+
+src\ASF\sam0\drivers\sercom\spi\spi.c
+
+src\ASF\sam0\drivers\sercom\spi\spi_interrupt.c
+
 src\ASF\sam0\drivers\system\clock\clock_samd21_r21_da_ha1\clock.c
 
 src\ASF\sam0\drivers\system\clock\clock_samd21_r21_da_ha1\gclk.c

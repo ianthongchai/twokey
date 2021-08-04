@@ -71,6 +71,7 @@ void ui_wakeup(void)
 	//LED_On(LED_0_PIN);
 }
 
+void setLED(uint8_t index, uint8_t brightness, uint8_t r, uint8_t g, uint8_t b);
 
 void ui_process(uint16_t framenumber)
 {
@@ -83,8 +84,10 @@ void ui_process(uint16_t framenumber)
 		
 		if(b_btn_state) {
 			udi_hid_kbd_down(HID_E);
+			setLED(0, 8, 1, 135, 255);
 		} else {
 			udi_hid_kbd_up(HID_E);
+			setLED(0, 0, 0, 0, 0);
 		}
 	}
 	
@@ -97,8 +100,10 @@ void ui_process(uint16_t framenumber)
 		
 		if(b_btn_state2) {
 			udi_hid_kbd_down(HID_R);
+			setLED(1, 8, 1, 135, 255);			
 		} else {
 			udi_hid_kbd_up(HID_R);
+			setLED(1, 0, 0, 0, 0);			
 		}
 	}
 }

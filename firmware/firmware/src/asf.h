@@ -75,6 +75,14 @@
 // From module: SAM D21/R21/D11/L21/DA1/L22 USB Dual role interface
 #include <usb_dual.h>
 
+// From module: SERCOM Callback API
+#include <sercom.h>
+#include <sercom_interrupt.h>
+
+// From module: SERCOM SPI - Serial Peripheral Interface (Callback APIs)
+#include <spi.h>
+#include <spi_interrupt.h>
+
 // From module: SYSTEM - Clock Management for SAMD21/R21/DA/HA
 #include <clock.h>
 #include <gclk.h>
