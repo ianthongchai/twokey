@@ -41,21 +41,7 @@
 struct spi_module spi_master_instance;
 struct spi_slave_inst slave;
 
-void configure_spi_master_callbacks(void);
 void configure_spi_master(void);
-
-volatile bool is_transferring = false;
-
-static void callback_spi_master( struct spi_module *const module)
-{
-	is_transferring = false;
-}
-
-void configure_spi_master_callbacks(void)
-{
-	spi_register_callback(&spi_master_instance, callback_spi_master, SPI_CALLBACK_BUFFER_TRANSCEIVED);
-	spi_enable_callback(&spi_master_instance, SPI_CALLBACK_BUFFER_TRANSCEIVED);
-}
 
 void configure_spi_master(void)
 {
@@ -77,8 +63,6 @@ void configure_spi_master(void)
 	spi_init(&spi_master_instance, CONF_MASTER_SPI_MODULE, &config_spi_master);
 
 	spi_enable(&spi_master_instance);
-	
-	configure_spi_master_callbacks();
 }
 
 static volatile bool main_b_kbd_enable = true;
@@ -116,12 +100,12 @@ void setLED(uint8_t index, uint8_t brightness, uint8_t r, uint8_t g, uint8_t b) 
 	wr_buffer[offset + 2] = g;
 	wr_buffer[offset + 3] = r;
 	
-	while(is_transferring)  {
-		// wait
+	while(!spi_is_ready_to_write(&spi_master_instance)) {		
 	}
-	is_transferring = true;
 	spi_transceive_buffer_job(&spi_master_instance, wr_buffer,rd_buffer,16);
 }
+
+void clearLEDs(void);
 
 void clearLEDs() {
 	//spi_select_slave(&spi_master_instance, &slave, true);
@@ -148,10 +132,8 @@ void clearLEDs() {
 		0xff, 0xff, 0xff, 0xff
 	}, rd_buffer[16];
 
-	while(is_transferring)  {
-		// wait
-	}
-	is_transferring = true;		
+	while(!spi_is_ready_to_write(&spi_master_instance)) {
+	}	
 	spi_transceive_buffer_job(&spi_master_instance, wr_buffer,rd_buffer,16);
 }
 
