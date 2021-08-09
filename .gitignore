@@ -26,3 +26,5 @@ fp-info-cache
 *.csv
 **/Debug
 **/Release
+**/.vs
+*.log
