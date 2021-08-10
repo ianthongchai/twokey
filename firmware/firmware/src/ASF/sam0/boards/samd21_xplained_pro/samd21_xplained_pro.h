@@ -100,6 +100,14 @@ void system_board_init(void);
 #define SW1_EIC_PINMUX            PINMUX_PA15A_EIC_EXTINT15
 #define SW1_EIC_LINE              15
 
+#define SW2_PIN                   PIN_PA00
+#define SW2_ACTIVE                true
+#define SW2_INACTIVE              !SW2_ACTIVE
+#define SW2_EIC_PIN               PIN_PA00A_EIC_EXTINT0
+#define SW2_EIC_MUX               MUX_PA00A_EIC_EXTINT0
+#define SW2_EIC_PINMUX            PINMUX_PA00A_EIC_EXTINT0
+#define SW2_EIC_LINE              0
+
 /**
  * \name LED #0 definitions
  *
@@ -165,6 +173,15 @@ void system_board_init(void);
 #define BUTTON_1_EIC_MUX          SW1_EIC_MUX
 #define BUTTON_1_EIC_PINMUX       SW1_EIC_PINMUX
 #define BUTTON_1_EIC_LINE         SW1_EIC_LINE
+
+#define BUTTON_2_NAME             "SW2"
+#define BUTTON_2_PIN              SW2_PIN
+#define BUTTON_2_ACTIVE           SW2_ACTIVE
+#define BUTTON_2_INACTIVE         SW2_INACTIVE
+#define BUTTON_2_EIC_PIN          SW2_EIC_PIN
+#define BUTTON_2_EIC_MUX          SW2_EIC_MUX
+#define BUTTON_2_EIC_PINMUX       SW2_EIC_PINMUX
+#define BUTTON_2_EIC_LINE         SW2_EIC_LINE
 
 /** Number of on-board buttons */
 #define BUTTON_COUNT 1
